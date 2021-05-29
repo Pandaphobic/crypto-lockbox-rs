@@ -1,9 +1,9 @@
 use include_crypt::{include_crypt, EncryptedFile};
 
-static PASSWORD: EncryptedFile = include_crypt!("password");
-static SEED: EncryptedFile = include_crypt!("seedphrase");
-static WALLET: EncryptedFile = include_crypt!("wallet");
-static PRIVATE_KEY: EncryptedFile = include_crypt!("private_key");
+static PASSWORD: EncryptedFile = include_crypt!("encrypted_data/password");
+static SEED: EncryptedFile = include_crypt!("encrypted_data/seedphrase");
+static WALLET: EncryptedFile = include_crypt!("encrypted_data/wallet");
+static PRIVATE_KEY: EncryptedFile = include_crypt!("encrypted_data/private_key");
 
 fn main() {
 

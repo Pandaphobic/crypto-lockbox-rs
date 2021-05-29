@@ -56,7 +56,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "encrypted-nested-file"
+name = "crypto-locker"
 version = "0.1.0"
 dependencies = [
  "include-crypt",
