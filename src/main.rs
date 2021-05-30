@@ -14,6 +14,7 @@ fn main() {
         Err(error) => panic!("Problem opening password file: {:?}", error),
     };
     // Remove \n from the end of password
+    println!("{}", decrypted_pass);
     let password = decrypted_pass.trim(); 
 
     println!("This files is encrypted! Enter your password to continue. \n");

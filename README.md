@@ -15,3 +15,8 @@ Each of the files in `encrypted_data` is hashed and then stored in the binary. T
 
 None of the original files are required after building. Simply test it out and if you can get it, keep the binfile and password safe. If every you need your info, run the bin in *any* terminal, enter the correct password and boom - super secret information decrypted!
 
+## Password Tips
+
+Trim is applied to the password BEFORE it is compared to the password you enter to unlock. Because of this, please only use the characters below:
+
+`A-Z, a-z, 0-9, !@#$%^&*()-=+?`
