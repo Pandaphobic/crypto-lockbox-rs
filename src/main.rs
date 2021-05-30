@@ -6,7 +6,6 @@ static WALLET: EncryptedFile = include_crypt!("encrypted_data/wallet");
 static PRIVATE_KEY: EncryptedFile = include_crypt!("encrypted_data/private_key");
 
 fn main() {
-
     // Load Password File
     let decrypted_passfile = PASSWORD.decrypt_str();
     let decrypted_pass = match decrypted_passfile {
@@ -24,37 +23,34 @@ fn main() {
     // Check Password
     if input_pass == password {        
         
-        // Dectrypt Seed
-        let decrypted_seed = SEED.decrypt_str();
-        let decrypted_seed = match decrypted_seed {
-            Ok(string) => string,
-            Err(error) => panic!("Problem opening the seedphrase file: {:?}", error),
-        };
-        
-        // Dectrypt Wallet
-        let decrypted_wallet = WALLET.decrypt_str();
-        let decrypted_wallet = match decrypted_wallet {
-            Ok(string) => string,
-            Err(error) => panic!("Problem opening the wallet file: {:?}", error),
-        };
-
-        // Dectrypt Private Key
-        let decrypted_private_key = PRIVATE_KEY.decrypt_str();
-        let decrypted_private_key = match decrypted_private_key {
-            Ok(string) => string,
-            Err(error) => panic!("Problem opening the wallet file: {:?}", error),
-        };
-
-        println!("Password Accepted! \n");
-        println!("Wallet Public Address:");
-        println!("{:?}\n", decrypted_wallet.trim());
-        println!("Secret Phrase is:");
-        println!("{:?}\n", decrypted_seed.trim());
-        println!("Private Key is: ");
-        println!("{:?}\n", decrypted_private_key.trim());         
+        let decrypted_secret = Secret::decrypt();
+        println!("{}", decrypted_secret.seed);
+        println!("{}", decrypted_secret.wallet);
+        println!("{}", decrypted_secret.private_key);
 
     } else {
         println!("Password Not Accepted");
     }
+}
 
+struct Secret {
+    seed: String,
+    wallet: String,
+    private_key: String,
+}
+
+impl Secret {
+    fn decrypt() -> Secret { 
+        // Dectrypt Items
+        let decrypted_seed = SEED.decrypt_str().unwrap(); 
+        let decrypted_wallet = WALLET.decrypt_str().unwrap();
+        let decrypted_private_key = PRIVATE_KEY.decrypt_str().unwrap();
+        
+        // Clone value into new Secret
+        let seed = decrypted_seed.clone();
+        let wallet = decrypted_wallet.clone();
+        let private_key = decrypted_private_key.clone();
+        // Return a decrypted Secret
+        return Secret { seed, wallet, private_key};
+    }
 }
